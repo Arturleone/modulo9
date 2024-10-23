@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Modulo 9</string>
+    <string name="app_name">Seu Nome do App</string>
+    <string name="shortcut_registration_short_label">Registro</string>
+    <string name="shortcut_registration_long_label">Registrar uma nova reclamação</string>
+    <string name="shortcut_complaints_short_label">Reclamações</string>
+    <string name="shortcut_complaints_long_label">Ver as reclamações registradas</string>
 </resources>

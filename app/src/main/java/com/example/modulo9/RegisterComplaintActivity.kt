@@ -2,12 +2,16 @@ package com.example.modulo9
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +30,8 @@ class RegisterComplaintActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_complaint)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         etTitle = findViewById(R.id.etTitle)
         etDescription = findViewById(R.id.etDescription)
@@ -46,6 +52,33 @@ class RegisterComplaintActivity : AppCompatActivity() {
             clearFields()
         }
 
+        createShortcuts()
+
+    }
+
+    private fun createShortcuts() {
+        val shortcutManager = getSystemService(ShortcutManager::class.java)
+
+        val registrationShortcut = ShortcutInfo.Builder(this, "shortcut_registration")
+            .setShortLabel(getString(R.string.shortcut_registration_short_label))
+            .setLongLabel(getString(R.string.shortcut_registration_long_label))
+            .setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher))
+            .setIntent(Intent(this, RegisterComplaintActivity::class.java).apply {
+                action = Intent.ACTION_VIEW
+            })
+            .build()
+
+        val complaintsShortcut = ShortcutInfo.Builder(this, "shortcut_complaints")
+            .setShortLabel(getString(R.string.shortcut_complaints_short_label))
+            .setLongLabel(getString(R.string.shortcut_complaints_long_label))
+            .setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher))
+            .setIntent(Intent(this, ComplaintsListActivity::class.java).apply {
+                action = Intent.ACTION_VIEW
+            })
+            .build()
+
+        // Adicionando os atalhos ao gerenciador de atalhos
+        shortcutManager?.setDynamicShortcuts(listOf(registrationShortcut, complaintsShortcut))
     }
 
     private fun submitComplaint() {
