@@ -20,7 +20,7 @@ class RegisterComplaintActivity : AppCompatActivity() {
     private lateinit var etDescription: EditText
     private lateinit var btnSubmit: Button
     private lateinit var btnCancel: Button
-    private lateinit var bottomNav: BottomNavigationView
+
     private val api = ApiClient.api
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,6 @@ class RegisterComplaintActivity : AppCompatActivity() {
         etDescription = findViewById(R.id.etDescription)
         btnSubmit = findViewById(R.id.btnSubmit)
         btnCancel = findViewById(R.id.btnCancel)
-        bottomNav = findViewById(R.id.bottomNav)
 
         // Lógica de submissão
         btnSubmit.setOnClickListener {
@@ -47,7 +46,6 @@ class RegisterComplaintActivity : AppCompatActivity() {
             clearFields()
         }
 
-        // Navegação no Bottom Navigation
     }
 
     private fun submitComplaint() {
