@@ -24,7 +24,6 @@ class RegisterComplaintActivity : AppCompatActivity() {
     private lateinit var etDescription: EditText
     private lateinit var btnSubmit: Button
     private lateinit var btnCancel: Button
-
     private val api = ApiClient.api
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +31,6 @@ class RegisterComplaintActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register_complaint)
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
         etTitle = findViewById(R.id.etTitle)
         etDescription = findViewById(R.id.etDescription)
         btnSubmit = findViewById(R.id.btnSubmit)
@@ -51,34 +49,6 @@ class RegisterComplaintActivity : AppCompatActivity() {
         btnCancel.setOnClickListener {
             clearFields()
         }
-
-        createShortcuts()
-
-    }
-
-    private fun createShortcuts() {
-        val shortcutManager = getSystemService(ShortcutManager::class.java)
-
-        val registrationShortcut = ShortcutInfo.Builder(this, "shortcut_registration")
-            .setShortLabel(getString(R.string.shortcut_registration_short_label))
-            .setLongLabel(getString(R.string.shortcut_registration_long_label))
-            .setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher))
-            .setIntent(Intent(this, RegisterComplaintActivity::class.java).apply {
-                action = Intent.ACTION_VIEW
-            })
-            .build()
-
-        val complaintsShortcut = ShortcutInfo.Builder(this, "shortcut_complaints")
-            .setShortLabel(getString(R.string.shortcut_complaints_short_label))
-            .setLongLabel(getString(R.string.shortcut_complaints_long_label))
-            .setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher))
-            .setIntent(Intent(this, ComplaintsListActivity::class.java).apply {
-                action = Intent.ACTION_VIEW
-            })
-            .build()
-
-        // Adicionando os atalhos ao gerenciador de atalhos
-        shortcutManager?.setDynamicShortcuts(listOf(registrationShortcut, complaintsShortcut))
     }
 
     private fun submitComplaint() {
